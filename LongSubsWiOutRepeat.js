@@ -1,21 +1,16 @@
 var lengthOfLongestSubstring = function(s) {
-    let countSet = new Set();
-    let stringSet = new Set();
-
+    let maxlength = 0;
+    let trail = 0;
+    let subset = new Set();
     for(let i=0;i<s.length;i++) {
-        
-        if(stringSet.has(s[i])) {
-            let size = stringSet.size;
-            countSet.add(stringSet.size);
-            stringSet.clear();
-           
-            count = 0;
-            i-=size - 1
-        } 
-        stringSet.add(s[i])
+        while(subset.has(s[i])) {
+            subset.delete(s[trail]);
+            trail++;
+        }
+        subset.add(s[i]);
+        maxlength = Math.max(maxlength,i-trail+1)
     }
-    countSet.add(stringSet.size);
-    return Math.max(...countSet)
+    return maxlength;
 }
 
 console.log(lengthOfLongestSubstring("anviaj"))
